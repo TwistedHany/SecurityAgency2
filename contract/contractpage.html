@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contract Management</title>
+  <link rel="stylesheet" href="/contract/contract.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <span>RQA Agency</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/contract/contractpage.html"><img src="/icon/contract-icon.png" alt="Contract Icon"> Contract</a></li>
+          <li><a href="/payslip/payslippage.html"><img src="/icon/payslip-icon.png" alt="Pay Slip Icon"> Pay Slip</a></li>
+          <li><a href="/Personnel/personpage.html"><img src="/icon/employee-icon.png" alt="Employee Icon"> Personnel</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="header">
+        <h1>Contract Management System</h1>
+      </div>
+
+      <!-- Section 1: Search and Assignment Details -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Search Assignment</h2>
+        </div>
+        <div class="card-body">
+          <form id="searchForm">
+            <label for="search">Search by Assignment ID or Personnel ID</label>
+            <input type="text" id="search" name="search" placeholder="Enter Assignment ID or Personnel ID">
+            <button type="submit" class="bn632-hover bn25">Search</button>
+          </form>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+              <tr style="background-color: #1e3a8a; color: white;">
+                <th>Assignment ID</th>
+                <th>Personnel ID</th>
+                <th>Contract</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Mode of Payment</th>
+              </tr>
+            </thead>
+            <tbody id="assignmentData">
+              <!-- Data will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 2: Contract Details -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Contract Details</h2>
+        </div>
+        <div class="card-body">
+          <form id="contractForm">
+            <div class="form-group">
+              <label for="contract">Contract</label>
+              <input type="text" id="contract" name="contract" placeholder="Enter Contract Name" required>
+            </div>
+            <div class="form-group">
+              <label for="client">Client</label>
+              <input type="text" id="client" name="client" placeholder="Enter Client Name" required>
+            </div>
+            <div class="form-group">
+              <label for="startDate">Start Date</label>
+              <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+              <label for="endDate">End Date</label>
+              <input type="date" id="endDate" name="endDate" required>
+            </div>
+            <div class="form-group">
+              <label for="paymentMode">Mode of Payment</label>
+              <input type="text" id="paymentMode" name="paymentMode" placeholder="Enter Payment Mode" required>
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <input type="text" id="status" name="status" placeholder="Enter Status" required>
+            </div>
+            <div class="form-group">
+              <label for="contractValue">Contract Value</label>
+              <input type="number" id="contractValue" name="contractValue" placeholder="Enter Contract Value" required>
+            </div>
+            <div class="button-container">
+              <button type="button" class="bn632-hover bn25">Edit Duration</button>
+              <button type="button" class="bn632-hover bn25">Terminate Contract</button>
+              <button type="submit" class="bn632-hover bn25">Confirm Assignment</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Section 3: Client Details -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Client Details</h2>
+        </div>
+        <div class="card-body">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #1e3a8a; color: white;">
+                <th>Business Name</th>
+                <th>Address</th>
+                <th>Contact Person</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody id="clientData">
+              <!-- Client data will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

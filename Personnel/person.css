@@ -1,0 +1,239 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 25%;
+    background-color: #f3f4f6;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+.sidebar .logo {
+    background-color: #d1d5db;
+    border-radius: 50%;
+    width: 128px;
+    height: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+.sidebar nav ul {
+    flex-grow: 0;
+    padding: 80px ;
+    max-height: 1000px;
+    background-color: #1a4c8a ;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.sidebar nav ul li {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    padding: 12px 20px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar nav ul li img {
+    width: 24px; 
+    height: 24px;
+}
+
+.sidebar nav ul li:hover {
+    background-color: #374151; 
+    border-radius: 8px;
+}
+
+.sidebar nav ul li a {
+    display: flex;             
+    align-items: center;       
+    text-decoration: none;      
+    color: inherit;              
+    width: 100%;                 
+    padding: 12px 20px;         
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+
+.sidebar nav ul li a:hover {
+    background-color: #374151;  
+    border-radius: 8px;          
+}
+
+.main-content {
+    width: 75%;
+    padding: 40px;
+}
+.header {
+    background-color: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 16px 0;
+    margin-bottom: 40px;
+}
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+.card {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+.card-header {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 8px 16px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.card-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+.card-body {
+    padding: 16px;
+}
+.card-body .form-group {
+    margin-bottom: 16px;
+}
+.card-body .form-group label {
+    display: block;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+.card-body .form-group input {
+    width: 50%;
+    padding: 8px;
+    background-color: #e5e7eb;
+    border: none;
+    border-radius: 4px;
+}
+.card-body .form-group input:disabled {
+    background-color: #e5e7eb;
+}
+.card-body .button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+}
+.bn632-hover {
+    width: 140px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 45px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    transition: all 0.4s ease-in-out;
+}
+.bn632-hover:hover {
+    background-position: 100% 0;
+    transition: all 0.4s ease-in-out;
+}
+.bn632-hover:focus {
+    outline: none;
+}
+.bn632-hover.bn25 {
+    background-image: linear-gradient(
+        to right,
+        #1f252c,
+        #455464,
+        #1a4c8a,
+        #63549b
+    );
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+
+    .sidebar .logo {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0;
+    }
+
+    .sidebar nav ul {
+        display: flex;
+        gap: 20px;
+        padding: 0;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-body .form-group input {
+        width: 100%;
+    }
+
+    .button-group, .button-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bn632-hover {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .card-header h2 {
+        font-size: 16px;
+    }
+
+    .sidebar nav ul li {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .bn632-hover {
+        font-size: 12px;
+        padding: 10px;
+    }
+}

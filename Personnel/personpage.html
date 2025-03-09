@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnel Page</title>
+    
+    <link rel="stylesheet" href="/Personnel/person.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+              <span>RQA Agency</span>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="/contract/contractpage.html"><img src="/icon/contract-icon.png" alt="Contract Icon"> Contract</a></li>
+                <li><a href="/payslip/payslippage.html"><img src="/icon/payslip-icon.png" alt="Pay Slip Icon"> Pay Slip</a></li>
+                <li><a href="/Personnel/personpage.html"><img src="/icon/employee-icon.png" alt="Employee Icon"> Personnel</a></li>
+              </ul>
+            </nav>
+          </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>PERSONNEL PAGE</h1>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>Search Personnel</h2>
+                </div>
+                <div class="card-body">
+                    <form id="searchForm" method="POST" action="fetch_personnel.php">
+                        <div class="form-group">
+                            <label for="search">Search by Name or ID</label>
+                            <input type="text" id="search" name="search" placeholder="Enter Personnel ID or Name">
+                        </div>
+                        <div class="button-container">
+                            <button type="submit" class="bn632-hover bn25">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        <!-- Add/Update Personnel Form -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Add / Update / Delete Personnel</h2>
+            </div>
+            <div class="card-body">
+                <form id="personnelForm">
+                    <input type="hidden" id="personnelId" name="personnelId">
+                    
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" placeholder="Enter Age" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="civilStatus">Civil Status</label>
+                        <input type="text" id="civilStatus" name="civilStatus" placeholder="Enter Civil Status" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" placeholder="Enter Address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactNumber">Contact Number</label>
+                        <input type="text" id="contactNumber" name="contactNumber" placeholder="Enter Contact Number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                    </div>
+
+                    <div class="button-container">
+                        <button type="submit" class="bn632-hover bn25">Save</button>
+                        <button type="reset" class="bn632-hover bn25">Clear</button>
+                        <button type="reset" class="bn632-hover bn25">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Personnel Data Grid</h2>
+                </div>
+                <div class="card-body">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: #1e3a8a; color: white;">
+                                <th style="padding: 10px; text-align: left;">Personnel ID</th>
+                                <th style="padding: 10px; text-align: left;">Name</th>
+                                <th style="padding: 10px; text-align: left;">Age</th>
+                                <th style="padding: 10px; text-align: left;">Civil Status</th>
+                                <th style="padding: 10px; text-align: left;">Gender</th>
+                                <th style="padding: 10px; text-align: left;">Address</th>
+                                <th style="padding: 10px; text-align: left;">Contact Number</th>
+                                <th style="padding: 10px; text-align: left;">Email</th>
+                                <th style="padding: 10px; text-align: left;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="personnelData">
+                            <!-- Data from MySQL will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
