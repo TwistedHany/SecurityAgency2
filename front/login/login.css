@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  .container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+  .image-section {
+    flex: 1;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .form-section {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  .form-container {
+    width: 100%;
+    max-width: 300px;
+    background-color: #e0e0e0;
+    padding: 30px;
+    border-radius: 4px;
+  }
+  
+  .login-form {
+    width: 100%;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .form-group:last-child {
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .bn632-hover {
+    width: 140px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    height: 45px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .bn632-hover:hover {
+    background-position: 100% 0;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .bn632-hover:focus {
+    outline: none;
+  }
+  
+  .bn632-hover.bn25 {
+    background-image: linear-gradient(
+      to right,
+      #1f252c,
+      #455464,
+      #1a4c8a,
+      #63549b
+    );
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+  }
+  
+  /* Media queries for responsive design */
+  @media screen and (max-width: 1024px) {
+    .form-section {
+      width: 50%;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+    
+    .image-section {
+      height: 40vh;
+    }
+    
+    .form-section {
+      width: 100%;
+      height: 60vh;
+    }
+    
+    .form-container {
+      max-width: 400px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .image-section {
+      height: 30vh;
+    }
+    
+    .form-section {
+      height: 70vh;
+      padding: 15px;
+    }
+    
+    .form-container {
+      padding: 20px;
+    }
+  }
