@@ -6,6 +6,8 @@
     <title>Personnel Page</title>
     
     <link rel="stylesheet" href="/front/Personnel/person.css">
+    <script src="/front/Personnel/index.js" defer></script>
+
 </head>
 <body>
     <div class="container">
@@ -34,27 +36,25 @@
                     <h2>Search Personnel</h2>
                 </div>
                 <div class="card-body">
-                    <form id="searchForm" method="POST" action="fetch_personnel.php">
+                    <form id="searchForm">
                         <div class="form-group">
                             <label for="search">Search by Name or ID</label>
                             <input type="text" id="search" name="search" placeholder="Enter Personnel ID or Name">
                         </div>
                         <div class="button-container">
-                            <button type="submit" class="bn632-hover bn25">Search</button>
+                            <button type="button" class="bn632-hover bn25" onclick="searchPersonnel()">Search</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-        <!-- Add/Update Personnel Form -->
+        
         <div class="card">
             <div class="card-header">
-                <h2>Add / Update / Delete Personnel</h2>
+                <h2>Update Personnel</h2>
             </div>
             <div class="card-body">
                 <form id="personnelForm">
-                    <input type="hidden" id="personnelId" name="personnelId">
-                    
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" placeholder="Enter Name" required>
@@ -67,20 +67,44 @@
 
                     <div class="form-group">
                         <label for="civilStatus">Civil Status</label>
-                        <input type="text" id="civilStatus" name="civilStatus" placeholder="Enter Civil Status" required>
+                        <select id="civilStatus" name="civilStatus" required>
+                            <option value="1">Single</option>
+                            <option value="2">Married</option>
+                            <option value="3">Widowed</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select id="gender" name="gender" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Others</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address" placeholder="Enter Address" required>
+                        <label for="street">Street</label>
+                        <input type="text" id="street" name="street" placeholder="Enter Street" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="barangay">Barangay</label>
+                        <input type="text" id="barangay" name="barangay" placeholder="Enter Barangay">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" placeholder="Enter City" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="province">Province</label>
+                        <input type="text" id="province" name="province" placeholder="Enter Province" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="zipcode">Zip Code</label>
+                        <input type="text" id="zipcode" name="zipcode" placeholder="Enter Zip Code" required>
                     </div>
 
                     <div class="form-group">
@@ -96,7 +120,7 @@
                     <div class="button-container">
                         <button type="submit" class="bn632-hover bn25">Save</button>
                         <button type="reset" class="bn632-hover bn25">Clear</button>
-                        <button type="reset" class="bn632-hover bn25">Delete</button>
+                        <button type="button" class="bn632-hover bn25" onclick="deletePersonnel()">Delete</button>
                     </div>
                 </form>
             </div>
@@ -118,7 +142,6 @@
                                 <th style="padding: 10px; text-align: left;">Address</th>
                                 <th style="padding: 10px; text-align: left;">Contact Number</th>
                                 <th style="padding: 10px; text-align: left;">Email</th>
-                                <th style="padding: 10px; text-align: left;">Status</th>
                             </tr>
                         </thead>
                         <tbody id="personnelData">
@@ -130,5 +153,45 @@
 
         </div>
     </div>
+
+    <script>
+        function fetchPersonnel() {
+            fetch('http://localhost:5000/getPersonnel')
+                .then(response => response.json())
+                .then(data => {
+                    let tableBody = document.getElementById('personnelData');
+                    tableBody.innerHTML = "";
+                    data.forEach(person => {
+                        let row = `<tr>
+                            <td>${person.Personnel_ID}</td>
+                            <td>${person.Personnel_Name}</td>
+                            <td>${person.Personnel_Age}</td>
+                            <td>${person.CivilStatus}</td>
+                            <td>${person.Gender}</td>
+                            <td>${person.Street}, ${person.Barangay}, ${person.City}, ${person.Province}, ${person.Zipcode}</td>
+                            <td>${person.ContactNo}</td>
+                            <td>${person.Email}</td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Error fetching personnel:', error));
+        }
+
+        function searchPersonnel() {
+            let searchValue = document.getElementById('search').value;
+            console.log("Search:", searchValue);
+            // Implement fetch request to filter personnel
+        }
+
+        function deletePersonnel() {
+            console.log("Delete personnel function triggered");
+            // Implement deletion logic
+        }
+
+        // Load personnel data on page load
+        window.onload = fetchPersonnel;
+    </script>
+
 </body>
 </html>

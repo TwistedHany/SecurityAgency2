@@ -170,7 +170,30 @@ body {
     box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
 }
 
+.card-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
+.card-body table th, .card-body table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-body table th {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.card-body table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.card-body table tr:hover {
+    background-color: #ddd;
+}
 
 /* Media Queries */
 @media (max-width: 1024px) {
