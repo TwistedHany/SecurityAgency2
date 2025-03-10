@@ -58,68 +58,67 @@
                     <details>
                         <summary style="cursor: pointer; padding: 10px; background-color: #1e3a8a; color: white; border-radius: 8px;">Click to Update Personnel</summary>
                         <form id="personnelForm" style="margin-top: 20px;">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Enter Name" required>
+                            <div class="form-container">
+                                <!-- Left Side: Name, Age, Civil Status, Gender -->
+                                <div class="form-section">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" id="name" name="name" placeholder="Enter Name" required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="age">Age</label>
+                                        <input type="number" id="age" name="age" placeholder="Enter Age" required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="civilStatus">Civil Status</label>
+                                        <select id="civilStatus" name="civilStatus" required>
+                                            <option value="1">Single</option>
+                                            <option value="2">Married</option>
+                                            <option value="3">Widowed</option>
+                                        </select>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <select id="gender" name="gender" required>
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                            <option value="3">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                                <!-- Right Side: Address -->
+                                <div class="form-section">
+                                    <div class="form-group">
+                                        <label for="street">Street</label>
+                                        <input type="text" id="street" name="street" placeholder="Enter Street" required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="barangay">Barangay</label>
+                                        <input type="text" id="barangay" name="barangay" placeholder="Enter Barangay">
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="city">City</label>
+                                        <input type="text" id="city" name="city" placeholder="Enter City" required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="province">Province</label>
+                                        <input type="text" id="province" name="province" placeholder="Enter Province" required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="zipcode">Zip Code</label>
+                                        <input type="text" id="zipcode" name="zipcode" placeholder="Enter Zip Code" required>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label for="age">Age</label>
-                                <input type="number" id="age" name="age" placeholder="Enter Age" required>
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="civilStatus">Civil Status</label>
-                                <select id="civilStatus" name="civilStatus" required>
-                                    <option value="1">Single</option>
-                                    <option value="2">Married</option>
-                                    <option value="3">Widowed</option>
-                                </select>
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="gender">Gender</label>
-                                <select id="gender" name="gender" required>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
-                                    <option value="3">Others</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="street">Street</label>
-                                <input type="text" id="street" name="street" placeholder="Enter Street" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="barangay">Barangay</label>
-                                <input type="text" id="barangay" name="barangay" placeholder="Enter Barangay">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input type="text" id="city" name="city" placeholder="Enter City" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="province">Province</label>
-                                <input type="text" id="province" name="province" placeholder="Enter Province" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="zipcode">Zip Code</label>
-                                <input type="text" id="zipcode" name="zipcode" placeholder="Enter Zip Code" required>
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="contactNumber">Contact Number</label>
-                                <input type="text" id="contactNumber" name="contactNumber" placeholder="Enter Contact Number" required>
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Enter Email" required>
-                            </div>
-            
                             <div class="button-container">
                                 <button type="submit" class="bn632-hover bn25">Save</button>
                                 <button type="reset" class="bn632-hover bn25">Clear</button>
