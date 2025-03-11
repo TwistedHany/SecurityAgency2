@@ -18,26 +18,43 @@ app.get('/', (req, res) => {
 // Route to handle personnel form submission
 app.post('/submitPersonnel', (req, res) => {
     const { name, age, civilStatus, gender, street, barangay, city, province, zipcode, contactNumber, email } = req.body;
+    console.log('Received Data:', req.body); // Log received data
 
     pool.getConnection()
         .then(conn => {
-            // Insert address into address table
-            conn.query('INSERT INTO address (Street, Barangay, City, Province, Postal_Code) VALUES (?, ?, ?, ?, ?)', 
-            [street, barangay, city, province, zipcode])
+            // Check if the personnel already exists
+            conn.query('SELECT * FROM personnel WHERE Personnel_Name = ? AND ContactNo = ? AND Email = ?', [name, contactNumber, email])
                 .then(result => {
-                    const addressId = result.insertId;
+                    if (result.length > 0) {
+                        res.status(400).send('Personnel already exists');
+                        conn.release();
+                    } else {
+                        // Insert address into address table
+                        conn.query('INSERT INTO address (Street, Barangay, City, Province, Postal_Code) VALUES (?, ?, ?, ?, ?)', 
+                        [street, barangay, city, province, zipcode])
+                
+                    .then(result => {
+                                const addressId = result.insertId;
+                                console.log('Inserted Address ID:', addressId); // Log inserted address ID
 
-                    // Insert personnel data into personnel table
-                    return conn.query('INSERT INTO personnel (Personnel_Name, Personnel_Age, CivilStatus_ID, Gender_ID, Address_ID, ContactNo, Email) VALUES (?, ?, ?, ?, ?, ?, ?)', 
-                    [name, age, civilStatus, gender, addressId, contactNumber, email]);
-                })
-                .then(result => {
-                    res.send('Personnel data inserted successfully');
-                    conn.release();
+                                // Insert personnel data into personnel table
+                                return conn.query('INSERT INTO personnel (Personnel_Name, Personnel_Age, CivilStatus_ID, Gender_ID, Address_ID, ContactNo, Email) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+                                [name, age, civilStatus, gender, addressId, contactNumber, email]);
+                            })
+                            .then(result => {
+                                res.send('Personnel data inserted successfully');
+                                conn.release();
+                            })
+                            .catch(err => {
+                                res.status(500).send('Error inserting personnel data');
+                                console.error('Error inserting personnel data:', err);
+                                conn.release();
+                            });
+                    }
                 })
                 .catch(err => {
-                    res.status(500).send('Error inserting personnel data');
-                    console.error('Error inserting personnel data:', err);
+                    res.status(500).send('Error checking personnel data');
+                    console.error('Error checking personnel data:', err);
                     conn.release();
                 });
         })

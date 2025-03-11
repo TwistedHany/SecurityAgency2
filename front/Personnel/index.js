@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function loadPersonnelData() {
-    fetch('http://localhost:3000/getPersonnel')
+    fetch('http://localhost:5000/getPersonnel')
         .then(response => response.json())
         .then(data => {
             const personnelData = document.getElementById('personnelData');
@@ -47,4 +47,15 @@ function loadPersonnelData() {
         .catch(error => {
             console.error('Error:', error);
         });
+}
+
+function searchPersonnel() {
+    let searchValue = document.getElementById('search').value;
+    console.log("Search:", searchValue);
+    // Implement fetch request to filter personnel
+}
+
+function deletePersonnel() {
+    console.log("Delete personnel function triggered");
+    // Implement deletion logic
 }

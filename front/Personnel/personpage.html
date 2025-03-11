@@ -7,7 +7,6 @@
     
     <link rel="stylesheet" href="/front/Personnel/person.css">
     <script src="/front/Personnel/index.js" defer></script>
-
 </head>
 <body>
     <div class="container">
@@ -88,6 +87,16 @@
                                             <option value="3">Others</option>
                                         </select>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="contactNumber">Contact No.</label>
+                                        <input type="text" id="contactNumber" name="contactNumber" placeholder="Enter Contact Number" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                                    </div>
                                 </div>
                             
                                 <!-- Right Side: Address -->
@@ -157,45 +166,5 @@
 
         </div>
     </div>
-
-    <script>
-        function fetchPersonnel() {
-            fetch('http://localhost:5000/getPersonnel')
-                .then(response => response.json())
-                .then(data => {
-                    let tableBody = document.getElementById('personnelData');
-                    tableBody.innerHTML = "";
-                    data.forEach(person => {
-                        let row = `<tr>
-                            <td>${person.Personnel_ID}</td>
-                            <td>${person.Personnel_Name}</td>
-                            <td>${person.Personnel_Age}</td>
-                            <td>${person.CivilStatus}</td>
-                            <td>${person.Gender}</td>
-                            <td>${person.Street}, ${person.Barangay}, ${person.City}, ${person.Province}, ${person.Zipcode}</td>
-                            <td>${person.ContactNo}</td>
-                            <td>${person.Email}</td>
-                        </tr>`;
-                        tableBody.innerHTML += row;
-                    });
-                })
-                .catch(error => console.error('Error fetching personnel:', error));
-        }
-
-        function searchPersonnel() {
-            let searchValue = document.getElementById('search').value;
-            console.log("Search:", searchValue);
-            // Implement fetch request to filter personnel
-        }
-
-        function deletePersonnel() {
-            console.log("Delete personnel function triggered");
-            // Implement deletion logic
-        }
-
-        // Load personnel data on page load
-        window.onload = fetchPersonnel;
-    </script>
-
 </body>
 </html>
