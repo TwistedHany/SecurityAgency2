@@ -11,23 +11,25 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-              <span>RQA Agency</span>
+                <img src="/front/images/RQA_logo.jpg" alt="ROA Agency">
             </div>
             <nav>
-                <nav>
-                    <ul>
-                        <li><a href="/front/purpose/purpose.html"><img src="/front/icon/institution-icon.png" alt="Purpose Icon"> Purpose</a></li>
-                        <li><a href="/front/Personnel/personpage.html"><img src="/front/icon/employee-icon.png" alt="Employee Icon"> Personnel</a></li>  
-                        <li><a href="/front/contract/contractpage.html"><img src="/front/icon/contract-icon.png" alt="Contract Icon"> Contract</a></li>
-                        <li><a href="/front/payslip/payslippage.html"><img src="/front/icon/payslip-icon.png" alt="Pay Slip Icon"> Pay Slip</a></li>
-                    </ul>
-                  </nav>
-          </div>
+                <ul>
+                    <li><a href="/front/purpose/purpose.html"><img src="/front/icon/institution-icon.png" alt="Purpose Icon"> Purpose</a></li>
+                    <li><a href="/front/Personnel/personpage.html"><img src="/front/icon/employee-icon.png" alt="Employee Icon"> Personnel</a></li>
+                    <li><a href="/front/contract/contractpage.html"><img src="/front/icon/contract-icon.png" alt="Contract Icon"> Contract</a></li>
+                    <li><a href="/front/payslip/payslippage.html"><img src="/front/icon/payslip-icon.png" alt="Pay Slip Icon"> Pay Slip</a></li>
+                </ul>
+            </nav>
+        </div>
+
         <!-- Main Content -->
         <div class="main-content">
             <div class="header">
                 <h1>PAY SLIP</h1>
             </div>
+
+            <!-- Personnel ID Card -->
             <div class="card">
                 <div class="card-header">
                     <h2>Personnel ID</h2>
@@ -50,45 +52,81 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Earnings & Deductions Card -->
             <div class="card">
                 <div class="card-header">
                     <h2>Earnings & Deductions</h2>
                 </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label>Salary</label>
-                        <input type="text" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Bonus</label>
-                        <input type="text" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Allowance</label>
-                        <input type="text" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Deduction 1</label>
-                        <input type="text" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Deduction 2</label>
-                        <input type="text" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Deduction 3</label>
-                        <input type="text" disabled>
-                    </div>
-                    <div class="button-group">
+                    <div class="card-body">
+                        <details>
+                            <summary style="cursor: pointer; padding: 8px; background-color: #1e3a8a; color: white; border-radius: 8px;">Click to Input Contract</summary>
                         <div class="form-group">
-                            <label>Net Total</label>
+                            <label>Salary</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Bonus</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Allowance</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Deduction 1</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Deduction 2</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Deduction 3</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Gross</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Deduction</label>
+                            <input type="text" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Net</label>
                             <input type="text" disabled>
                         </div>
                         <div class="button-container">
                             <button class="bn632-hover bn25">Confirm</button>
                             <button class="bn632-hover bn25">Calculate</button>
                         </div>
-                    </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Payslip History Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Payslip History</h2>
+                </div>
+                <div class="card-body">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: #1e3a8a; color: white;">
+                                <th style="padding: 10px; text-align: left;">Personnel ID</th>
+                                <th style="padding: 10px; text-align: left;">Name</th>
+                                <th style="padding: 10px; text-align: left;">Status</th>
+                                <th style="padding: 10px; text-align: left;">Pay ID</th>
+                                <th style="padding: 10px; text-align: left;">Total Gross</th>
+                                <th style="padding: 10px; text-align: left;">Total Deduction</th>
+                                <th style="padding: 10px; text-align: left;">Total Net</th>
+                            </tr>
+                        </thead>
+                        <tbody id="personnelData">
+                            <!-- Data from MySQL will be inserted here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
