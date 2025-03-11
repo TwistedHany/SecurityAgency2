@@ -25,8 +25,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 40px;
+    overflow: hidden; /* Ensure image does not exceed bounds */
 }
+
+.sidebar .logo img {
+    width: 100%; /* Fill the circle */
+    height: 100%; /* Fill the circle */
+    object-fit: cover; /* Ensure it fills the circle without stretching */
+    border-radius: 50%;
+}
+
 .sidebar nav ul {
     flex-grow: 0;
     padding: 80px ;
