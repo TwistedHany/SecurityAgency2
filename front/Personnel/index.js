@@ -50,12 +50,47 @@ function loadPersonnelData() {
 }
 
 function searchPersonnel() {
-    let searchValue = document.getElementById('search').value;
-    console.log("Search:", searchValue);
-    // Implement fetch request to filter personnel
+    const searchValue = document.getElementById('search').value;
+
+    fetch(`http://localhost:5000/searchPersonnel?query=${searchValue}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const personnel = data[0];
+                document.getElementById('personnelId').value = personnel.Personnel_ID;
+                document.getElementById('personnelName').value = personnel.Personnel_Name;
+                document.getElementById('personnelAge').value = personnel.Personnel_Age;
+                document.getElementById('personnelCivilStatus').value = personnel.CivilStatus;
+                document.getElementById('personnelGender').value = personnel.Gender;
+                document.getElementById('personnelAddress').value = `${personnel.Street}, ${personnel.Barangay}, ${personnel.City}, ${personnel.Province}, ${personnel.Zipcode}`;
+                document.getElementById('personnelContactNumber').value = personnel.ContactNo;
+                document.getElementById('personnelEmail').value = personnel.Email;
+
+                document.getElementById('personnelDetailsCard').style.display = 'block';
+            } else {
+                alert('No personnel found');
+                document.getElementById('personnelDetailsCard').style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching personnel data:', error);
+        });
 }
 
 function deletePersonnel() {
-    console.log("Delete personnel function triggered");
-    // Implement deletion logic
+    const personnelId = document.getElementById('personnelId').value;
+    if (confirm('Are you sure you want to delete this personnel?')) {
+        fetch(`http://localhost:5000/deletePersonnel?personnelId=${personnelId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            document.getElementById('personnelDetailsCard').style.display = 'none';
+            loadPersonnelData();
+        })
+        .catch(error => {
+            console.error('Error deleting personnel:', error);
+        });
+    }
 }
