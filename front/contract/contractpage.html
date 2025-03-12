@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contract Management</title>
   <link rel="stylesheet" href="/front/contract/contract.css">
+  <script src="/front/contract/index.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -93,6 +94,15 @@
                 <input type="email" id="email" name="email" placeholder="Enter Email">
               </div>
 
+              <div class="form-group">
+                <label for="clientType">Client Type</label>
+                <select id="clientType" name="clientType">
+                  <option value="1">Corporation</option>
+                  <option value="2">Cooperative</option>
+                  <option value="3">Incorpotated</option>
+                </select>
+              </div>
+
               <!-- Right Side: Address -->
               <div class="form-section">
                 <div class="form-group">
@@ -120,6 +130,9 @@
                     <input type="text" id="zipcode" name="zipcode" placeholder="Enter Zip Code" required>
                 </div>
               </div>
+              <div class="button-container">
+                <button type="button" class="bn632-hover bn25" onclick="addClient()">Add Client</button>
+              </div>
             </form>
           </details>
         </div>
@@ -132,7 +145,7 @@
         </div>
         <div class="card-body">
           <details>
-            <summary style="cursor: pointer; padding: 10px; background-color: #1e3a8a; color: white; border-radius: 8px;">Click to Input Contract</summary>
+            <summary style="cursor: pointer; padding: 10px; background-color: #466eda; color: white; border-radius: 8px;">Click to Input Contract</summary>
             <form id="contractForm">
               <div class="form-group">
                 <label for="contract">Contract ID</label>
@@ -172,6 +185,73 @@
         </div>
       </section>
       
+      <!-- Section 4: Assignment Details -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Assignment Details</h2>
+        </div>
+        <div class="card-body">
+          <form id="assignmentForm">
+            <div class="form-group">
+              <label for="assignmentId">Assignment ID</label>
+              <input type="text" id="assignmentId" name="assignmentId" placeholder="Enter Assignment ID" required>
+            </div>
+            <div class="form-group">
+              <label for="personnelId">Personnel ID</label>
+              <input type="text" id="personnelId" name="personnelId" placeholder="Enter Personnel ID" required>
+            </div>
+            <div class="form-group">
+              <label for="contractId">Contract ID</label>
+              <input type="text" id="contractId" name="contractId" placeholder="Enter Contract ID" required>
+            </div>
+            <div class="form-group">
+              <label for="startDate">Start Date</label>
+              <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+              <label for="endDate">End Date</label>
+              <input type="date" id="endDate" name="endDate" required>
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <input type="text" id="status" name="status" placeholder="Enter Status" required>
+            </div>
+            <div class="form-group">
+              <label for="paymentMode">Mode of Payment</label>
+              <input type="text" id="paymentMode" name="paymentMode" placeholder="Enter Payment Mode" required>
+            </div>
+            <div class="button-container">
+              <button type="submit" class="bn632-hover bn25">Add Assignment</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+
+      <!-- Section 5: Assignment Grid -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Assignment Grid</h2>
+        </div>
+        <div class="card-body">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #1e3a8a; color: white;">
+                <th>Assignment ID</th>
+                <th>Personnel ID</th>
+                <th>Contract ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Mode of Payment</th>
+              </tr>
+            </thead>
+            <tbody id="assignmentGrid">
+              <!-- Data will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <div class="card">
         <div class="card-header">
@@ -189,39 +269,35 @@
                         <th style="padding: 10px; text-align: left;">Address</th>
                     </tr>
                 </thead>
-                <tbody id="personnelData">
+                <tbody id="clientData">
                     <!-- Data from MySQL will be inserted here -->
                 </tbody>
             </table>
         </div>
     </div>
 
-
-        <div class="card">
-          <div class="card-header">
-              <h2>Contract's Grid </h2>
-          </div>
-          <div class="card-body">
-              <table style="width: 100%; border-collapse: collapse;">
-                  <thead>
-                      <tr style="background-color: #1e3a8a; color: white;">
-                          <th style="padding: 10px; text-align: left;">Contract ID</th>
-                          <th style="padding: 10px; text-align: left;">Client</th>
-                          <th style="padding: 10px; text-align: left;">Start Date</th>
-                          <th style="padding: 10px; text-align: left;">End Date</th>
-                          <th style="padding: 10px; text-align: left;">Mode of Payment</th>
-                          <th style="padding: 10px; text-align: left;">Status</th>
-                          <th style="padding: 10px; text-align: left;">Contract Value</th>
-                      </tr>
-                  </thead>
-                  <tbody id="personnelData">
-                      <!-- Data from MySQL will be inserted here -->
-                  </tbody>
-              </table>
-          </div>
+    <div class="card">
+      <div class="card-header">
+          <h2>Contract's Grid </h2>
       </div>
-      
-
+      <div class="card-body">
+          <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                  <tr style="background-color: #1e3a8a; color: white;">
+                      <th style="padding: 10px; text-align: left;">Contract ID</th>
+                      <th style="padding: 10px; text-align: left;">Client</th>
+                      <th style="padding: 10px; text-align: left;">Start Date</th>
+                      <th style="padding: 10px; text-align: left;">End Date</th>
+                      <th style="padding: 10px; text-align: left;">Mode of Payment</th>
+                      <th style="padding: 10px; text-align: left;">Status</th>
+                      <th style="padding: 10px; text-align: left;">Contract Value</th>
+                  </tr>
+              </thead>
+              <tbody id="contractData">
+                  <!-- Data from MySQL will be inserted here -->
+              </tbody>
+          </table>
+      </div>
     </div>
   </div>
 </body>
