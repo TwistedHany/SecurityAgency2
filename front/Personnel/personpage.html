@@ -18,7 +18,6 @@
             <nav>
                 <ul>
                     <li><a href="/front/dashboard/dashboard.html"><img src="/front/icon/dashboard-icon.png" alt="Dashboard Icon"> Dashboard</a></li>
-                    <li><a href="/front/purpose/purpose.html"><img src="/front/icon/institution-icon.png" alt="Purpose Icon"> Purpose</a></li>
                     <li><a href="/front/Personnel/personpage.html"><img src="/front/icon/employee-icon.png" alt="Employee Icon"> Personnel</a></li>  
                     <li><a href="/front/contract/contractpage.html"><img src="/front/icon/contract-icon.png" alt="Contract Icon"> Contract</a></li>
                     <li><a href="/front/payslip/payslippage.html"><img src="/front/icon/payslip-icon.png" alt="Pay Slip Icon"> Pay Slip</a></li>
@@ -99,7 +98,7 @@
                 </div>
                 <div class="card-body">
                     <details>
-                        <summary style="cursor: pointer; padding: 10px; background-color: #1e3a8a; color: white; border-radius: 8px;">Click to Update Personnel</summary>
+                        <summary style="cursor: pointer; padding: 10px; background-color: #2a4494e5; color: white; border-radius: 8px;">Click to Update Personnel</summary>
                         <form id="personnelForm" style="margin-top: 20px;">
                             <div class="form-container">
                                 <!-- Left Side: Name, Age, Civil Status, Gender -->
@@ -188,17 +187,17 @@
                     <h2>Personnel Data Grid</h2>
                 </div>
                 <div class="card-body">
-                    <table style="width: 100%; border-collapse: collapse;">
+                    <table class="data-table">
                         <thead>
-                            <tr style="background-color: #1e3a8a; color: white;">
-                                <th style="padding: 10px; text-align: left;">Personnel ID</th>
-                                <th style="padding: 10px; text-align: left;">Name</th>
-                                <th style="padding: 10px; text-align: left;">Age</th>
-                                <th style="padding: 10px; text-align: left;">Civil Status</th>
-                                <th style="padding: 10px; text-align: left;">Gender</th>
-                                <th style="padding: 10px; text-align: left;">Address</th>
-                                <th style="padding: 10px; text-align: left;">Contact Number</th>
-                                <th style="padding: 10px; text-align: left;">Email</th>
+                            <tr>
+                                <th>Personnel ID</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Civil Status</th>
+                                <th>Gender</th>
+                                <th>Address</th>
+                                <th>Contact Number</th>
+                                <th>Email</th>
                             </tr>
                         </thead>
                         <tbody id="personnelData">
