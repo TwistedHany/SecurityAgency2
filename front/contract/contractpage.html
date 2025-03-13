@@ -17,7 +17,6 @@
       <nav>
         <ul>
           <li><a href="/front/dashboard/dashboard.html"><img src="/front/icon/dashboard-icon.png" alt="Dashboard Icon"> Dashboard</a></li>
-            <li><a href="/front/purpose/purpose.html"><img src="/front/icon/institution-icon.png" alt="Purpose Icon"> Purpose</a></li>
             <li><a href="/front/Personnel/personpage.html"><img src="/front/icon/employee-icon.png" alt="Employee Icon"> Personnel</a></li>  
             <li><a href="/front/contract/contractpage.html"><img src="/front/icon/contract-icon.png" alt="Contract Icon"> Contract</a></li>
             <li><a href="/front/payslip/payslippage.html"><img src="/front/icon/payslip-icon.png" alt="Pay Slip Icon"> Pay Slip</a></li> 
@@ -42,9 +41,9 @@
             <input type="text" id="search" name="search" placeholder="Enter Assignment ID or Personnel ID">
             <button type="submit" class="bn632-hover bn25">Search</button>
           </form>
-          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+          <table class="data-table" style="margin-top: 20px;">
             <thead>
-              <tr style="background-color: #1e3a8a; color: white;">
+              <tr>
                 <th>Assignment ID</th>
                 <th>Personnel ID</th>
                 <th>Contract</th>
@@ -68,7 +67,7 @@
         </div>
         <div class="card-body">
           <details>
-            <summary style="cursor: pointer; padding: 10px; background-color: #1e3a8a; color: white; border-radius: 8px;">Click to Input Client</summary>
+            <summary style="cursor: pointer; padding: 10px; background-color: #2a4494e5; color: white; border-radius: 8px;">Click to Input Client</summary>
             <form id="clientForm">
               <div class="form-group">
                 <label for="clientName">Client ID</label>
@@ -139,6 +138,29 @@
         </div>
       </section>
 
+      <div class="card">
+        <div class="card-header">
+          <h2>Client's Grid</h2>
+        </div>
+        <div class="card-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Client ID</th>
+                <th>Business Name</th>
+                <th>Contact Person</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody id="clientData">
+              <!-- Data from MySQL will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- Section 3: Contract Details -->
       <section class="card">
         <div class="card-header">
@@ -146,7 +168,7 @@
         </div>
         <div class="card-body">
           <details>
-            <summary style="cursor: pointer; padding: 10px; background-color: #466eda; color: white; border-radius: 8px;">Click to Input Contract</summary>
+            <summary style="cursor: pointer; padding: 10px; background-color: #2a4494e5; color: white; border-radius: 8px;">Click to Input Contract</summary>
             <form id="contractForm">
               <div class="form-group">
                 <label for="contract">Contract ID</label>
@@ -185,6 +207,30 @@
           </details>
         </div>
       </section>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Contract's Grid</h2>
+        </div>
+        <div class="card-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Contract ID</th>
+                <th>Client</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Mode of Payment</th>
+                <th>Status</th>
+                <th>Contract Value</th>
+              </tr>
+            </thead>
+            <tbody id="contractData">
+              <!-- Data from MySQL will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
       
       <!-- Section 4: Assignment Details -->
       <section class="card">
@@ -235,9 +281,9 @@
           <h2>Assignment Grid</h2>
         </div>
         <div class="card-body">
-          <table style="width: 100%; border-collapse: collapse;">
+          <table class="data-table">
             <thead>
-              <tr style="background-color: #1e3a8a; color: white;">
+              <tr>
                 <th>Assignment ID</th>
                 <th>Personnel ID</th>
                 <th>Contract ID</th>
@@ -254,52 +300,8 @@
         </div>
       </section>
 
-      <div class="card">
-        <div class="card-header">
-            <h2>Client's Grid</h2>
-        </div>
-        <div class="card-body">
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="background-color: #1e3a8a; color: white;">
-                        <th style="padding: 10px; text-align: left;">Client ID</th>
-                        <th style="padding: 10px; text-align: left;">Business Name</th>
-                        <th style="padding: 10px; text-align: left;">Contact Person</th>
-                        <th style="padding: 10px; text-align: left;">Contact Number</th>
-                        <th style="padding: 10px; text-align: left;">Email</th>
-                        <th style="padding: 10px; text-align: left;">Address</th>
-                    </tr>
-                </thead>
-                <tbody id="clientData">
-                    <!-- Data from MySQL will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-          <h2>Contract's Grid </h2>
-      </div>
-      <div class="card-body">
-          <table style="width: 100%; border-collapse: collapse;">
-              <thead>
-                  <tr style="background-color: #1e3a8a; color: white;">
-                      <th style="padding: 10px; text-align: left;">Contract ID</th>
-                      <th style="padding: 10px; text-align: left;">Client</th>
-                      <th style="padding: 10px; text-align: left;">Start Date</th>
-                      <th style="padding: 10px; text-align: left;">End Date</th>
-                      <th style="padding: 10px; text-align: left;">Mode of Payment</th>
-                      <th style="padding: 10px; text-align: left;">Status</th>
-                      <th style="padding: 10px; text-align: left;">Contract Value</th>
-                  </tr>
-              </thead>
-              <tbody id="contractData">
-                  <!-- Data from MySQL will be inserted here -->
-              </tbody>
-          </table>
-      </div>
-    </div>
+
   </div>
 </body>
 </html>
