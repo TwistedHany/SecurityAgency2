@@ -39,21 +39,21 @@
                         <div class="card-icon bg-blue"></div>
                         <div class="card-content">
                             <p>ACTIVE PERSONNEL</p>
-                            <h2>0</h2>
+                            <h2 id="activePersonnelCount">0</h2>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-icon bg-green"></div>
                         <div class="card-content">
                             <p>INACTIVE PERSONNEL</p>
-                            <h2>0</h2>
+                            <h2 id="inactivePersonnelCount">0</h2>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-icon bg-blue"></div>
                         <div class="card-content">
                             <p>AVAILABLE CONTRACTS</p>
-                            <h2>0</h2>
+                            <h2 id="availableContractsCount">0</h2>
                         </div>
                     </div>
                 </div>
@@ -100,5 +100,18 @@
             </section>
         </main>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/getCounts')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('activePersonnelCount').textContent = data.activePersonnel;
+                    document.getElementById('inactivePersonnelCount').textContent = data.inactivePersonnel;
+                    document.getElementById('availableContractsCount').textContent = data.availableContracts;
+                })
+                .catch(error => console.error('Error fetching counts:', error));
+        });
+    </script>
 </body>
 </html>
