@@ -173,14 +173,14 @@ body {
     background-color: #1e3a8a;
     color: white;
     padding: 10px;
-    text-align: left;
+    text-align: center;
   }
   
   .data-table thead tr th:nth-child(even) {
     background-color: #2a4494e5;
     color: white;
     padding: 10px;
-    text-align: left;
+    text-align: center;
   }
   
   /* Row styling */
