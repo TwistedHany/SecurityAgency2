@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     loadClientData();
     loadContractData();
     loadAssignmentData();
@@ -126,7 +126,7 @@ function addContract(event) {
 }
 
 function addAssignment(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const assignmentForm = document.getElementById('assignmentForm');
     const formData = new FormData(assignmentForm);
