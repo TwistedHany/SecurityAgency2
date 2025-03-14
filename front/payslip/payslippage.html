@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pay Slip</title>
     <link rel="stylesheet" href="/front/payslip/payslip.css">
-    <script src="/front/payslip/paysliptransition.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -30,66 +29,157 @@
                 <h1>PAY SLIP</h1>
             </div>
 
-            <!-- Personnel ID Card -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>Personnel ID</h2>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label>Personnel ID</label>
-                        <input type="text" id="personnelIdInput" enabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" enabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Status</label>
-                        <input type="text" enabled>
-                    </div>
-                    <div class="button-container">
-                        <button class="bn632-hover bn25" id="searchButton">Search</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Earnings & Deductions Card -->
             <div class="card">
                 <div class="card-header">
                     <h2>Earnings & Deductions</h2>
                 </div>
-                    <div class="card-body">
-                        <details>
-                            <summary style="cursor: pointer; padding: 8px; background-color: #2a4494e5; color: white; border-radius: 8px;">Click to Input Contract</summary>
+                <div class="card-body">
+                    <details>
+                        <summary style="cursor: pointer; padding: 8px; background-color: #2a4494e5; color: white; border-radius: 8px;">Click to Input Contract</summary>
+                        <div class="form-group">
+                            <label>Personnel ID</label>
+                            <input type="text" id="personnelIdInputEarnings" enabled>
+                        </div>
                         <div class="form-group">
                             <label>Salary</label>
-                            <input type="text" enabled>
+                            <input type="text" id="salaryInput" enabled>
                         </div>
                         <div class="form-group">
                             <label>Bonus</label>
-                            <input type="text" enabled>
+                            <input type="text" id="bonusInput" enabled>
                         </div>
                         <div class="form-group">
                             <label>Allowance</label>
-                            <input type="text" enabled>
+                            <input type="text" id="allowanceInput" enabled>
                         </div>
                         <div class="form-group">
-                            <label>Deduction 1</label>
-                            <input type="text" enabled>
+                            <label>SSS</label>
+                            <input type="text" id="deduction1Input" enabled>
+                            <label>SSS Account Number</label>
+                            <input type="text" id="sssAccountNumber" enabled>
                         </div>
                         <div class="form-group">
-                            <label>Deduction 2</label>
-                            <input type="text" enabled>
+                            <label>Pag-IBIG</label>
+                            <input type="text" id="deduction2Input" enabled>
+                            <label>Pag-IBIG Account Number</label>
+                            <input type="text" id="pagibigAccountNumber" enabled>
                         </div>
                         <div class="form-group">
-                            <label>Deduction 3</label>
-                            <input type="text" enabled>
+                            <label>PhilHealth</label>
+                            <input type="text" id="deduction3Input" enabled>
+                            <label>PhilHealth Account Number</label>
+                            <input type="text" id="philhealthAccountNumber" enabled>
+                        </div>
                         <div class="button-container">
-                            <button class="bn632-hover bn25">Confirm</button>
-                            <button class="bn632-hover bn25">Calculate</button>
+                            <button class="bn632-hover bn25" id="confirmButton">Confirm</button>
+                            <button class="bn632-hover bn25" id="calculateButton">Calculate</button>
                         </div>
                     </details>
+                </div>
+            </div>
+
+            <!-- Salary Computation Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Salary Computation</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Personnel ID</label>
+                        <input type="text" id="computationPersonnelIdInput" enabled>
+                        <button class="bn632-hover bn25" id="computationSearchButton">Search</button>
+                    </div>
+                    <div class="computation-container">
+                        <div class="left-column">
+                            <div class="form-group">
+                                <label>SSS Contribution</label>
+                                <input type="text" id="sssContribution" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Pag-IBIG Contribution</label>
+                                <input type="text" id="pagibigContribution" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>PhilHealth Contribution</label>
+                                <input type="text" id="philhealthContribution" readonly>
+                            </div>
+                        </div>
+                        <div class="right-column">
+                            <div class="form-group">
+                                <label>Base Salary</label>
+                                <input type="text" id="baseSalary" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Base Bonus</label>
+                                <input type="text" id="baseBonus" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Base Allowance</label>
+                                <input type="text" id="baseAllowance" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Gross Components</label>
+                        <select id="grossComponents1">
+                            <option value="none">None</option>
+                            <option value="salary">Salary</option>
+                            <option value="bonus">Bonus</option>
+                            <option value="allowance">Allowance</option>
+                        </select>
+                        <select id="grossComponents2">
+                            <option value="none">None</option>
+                            <option value="salary">Salary</option>
+                            <option value="bonus">Bonus</option>
+                            <option value="allowance">Allowance</option>
+                        </select>
+                        <select id="grossComponents3">
+                            <option value="none">None</option>
+                            <option value="salary">Salary</option>
+                            <option value="bonus">Bonus</option>
+                            <option value="allowance">Allowance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Deduction Components</label>
+                        <select id="deductionComponents1">
+                            <option value="none">None</option>
+                            <option value="deduction1">SSS</option>
+                            <option value="deduction2">Pag-IBIG</option>
+                            <option value="deduction3">PhilHealth</option>
+                        </select>
+                        <select id="deductionComponents2">
+                            <option value="none">None</option>
+                            <option value="deduction1">SSS</option>
+                            <option value="deduction2">Pag-IBIG</option>
+                            <option value="deduction3">PhilHealth</option>
+                        </select>
+                        <select id="deductionComponents3">
+                            <option value="none">None</option>
+                            <option value="deduction1">SSS</option>
+                            <option value="deduction2">Pag-IBIG</option>
+                            <option value="deduction3">PhilHealth</option>
+                        </select>
+                    </div>
+                    <div class="button-container">
+                        <button class="bn632-hover bn25" id="computeButton">Compute</button>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Gross</label>
+                        <input type="text" id="totalGross" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Deduction</label>
+                        <input type="text" id="totalDeduction" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Net</label>
+                        <input type="text" id="totalNet" readonly>
+                    </div>
+                    <div class="button-container">
+                        <button class="bn632-hover bn25" id="saveButton">Save</button>
+                    </div>
                 </div>
             </div>
 
@@ -103,12 +193,10 @@
                         <thead>
                             <tr>
                                 <th>Personnel ID</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Pay ID</th>
+                                <th>Salary ID</th>
                                 <th>Total Gross</th>
-                                <th>Total Deduction</th>
-                                <th>Total Net</th>
+                                <th>Total Deductions</th>
+                                <th>Net Gross</th>
                             </tr>
                         </thead>
                         <tbody id="personnelData">
@@ -119,5 +207,6 @@
             </div>
         </div>
     </div>
+    <script src="/front/payslip/index.js"></script>
 </body>
 </html>

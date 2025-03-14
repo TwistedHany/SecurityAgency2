@@ -247,7 +247,7 @@ app.post('/addAssignment', (req, res) => {
         });
 });
 
-// Route to add new client
+
 app.post('/addClient', (req, res) => {
     const { clientName, businessName, contactPerson, contactNumber, email, clientType, street, barangay, city, province, zipcode } = req.body;
 
@@ -274,7 +274,7 @@ app.post('/addClient', (req, res) => {
         });
 });
 
-// Route to add new contract
+// add contract ni frank, from front end to backend database
 app.post('/addContract', (req, res) => {
     const { client, startDate, endDate, paymentMode, status, contractValue } = req.body;
 
@@ -299,29 +299,130 @@ app.post('/addContract', (req, res) => {
 });
 
 // Route to get counts for dashboard
-app.get('/getCounts', (req, res) => {
+
+
+// Route to get personnel data by ID
+app.get('/api/getPersonnelData', (req, res) => {
+    const personnelId = req.query.personnelId;
+
     pool.getConnection()
         .then(conn => {
-            const queries = [
-                'SELECT COUNT(*) AS activePersonnel FROM personnel WHERE Assignment_ID IS NOT NULL', // Active personnel have an Assignment_ID
-                'SELECT COUNT(*) AS inactivePersonnel FROM personnel WHERE Assignment_ID IS NULL', // Inactive personnel do not have an Assignment_ID
-                'SELECT COUNT(*) AS availableContracts FROM contract WHERE Status_ID = 1' // Assuming Status_ID 1 is for active contracts
-            ];
-
-            Promise.all(queries.map(query => conn.query(query)))
-                .then(results => {
-                    const counts = {
-                        activePersonnel: results[0][0].activePersonnel,
-                        inactivePersonnel: results[1][0].inactivePersonnel,
-                        availableContracts: results[2][0].availableContracts
-                    };
-                    res.json(counts);
+            conn.query('SELECT * FROM personnel WHERE Personnel_ID = ?', [personnelId])
+                .then(rows => {
+                    res.json(rows);
                     conn.release();
                 })
                 .catch(err => {
-                    res.status(500).send('Error fetching counts');
-                    console.error('Error fetching counts:', err);
+                    res.status(500).send('Error fetching personnel data');
+                    console.error('Error fetching personnel data:', err);
                     conn.release();
+                });
+        })
+        .catch(err => {
+            res.status(500).send('Database connection failed');
+            console.error('Database connection failed:', err);
+        });
+});
+
+
+app.post('/api/addPayslip', (req, res) => {
+    const { personnelId, salary, bonus, allowance, deduction1, deduction2, deduction3, sssAccountNumber, pagibigAccountNumber, philhealthAccountNumber } = req.body;
+
+    pool.getConnection()
+        .then(conn => {
+            conn.beginTransaction()
+                .then(() => {
+                    // Insert into personnelsalary table
+                    return conn.query('INSERT INTO personnelsalary (Personnel_ID, BaseSalary, BaseBonus, BaseAllowance) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE BaseSalary = VALUES(BaseSalary), BaseBonus = VALUES(BaseBonus), BaseAllowance = VALUES(BaseAllowance)', 
+                    [personnelId, salary, bonus, allowance]);
+                })
+                .then(() => {
+                    // Insert into personnel_deductions table
+                    return Promise.all([
+                        conn.query('INSERT INTO personnel_deductions (Personnel_ID, Deduction_ID, AccountNo, Contribution_Amount) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE AccountNo = VALUES(AccountNo), Contribution_Amount = VALUES(Contribution_Amount)', 
+                        [personnelId, 1, sssAccountNumber, deduction1]),
+                        conn.query('INSERT INTO personnel_deductions (Personnel_ID, Deduction_ID, AccountNo, Contribution_Amount) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE AccountNo = VALUES(AccountNo), Contribution_Amount = VALUES(Contribution_Amount)', 
+                        [personnelId, 2, pagibigAccountNumber, deduction2]),
+                        conn.query('INSERT INTO personnel_deductions (Personnel_ID, Deduction_ID, AccountNo, Contribution_Amount) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE AccountNo = VALUES(AccountNo), Contribution_Amount = VALUES(Contribution_Amount)', 
+                        [personnelId, 3, philhealthAccountNumber, deduction3])
+                    ]);
+                })
+                .then(() => {
+                    return conn.commit();
+                })
+                .then(() => {
+                    res.send('Payslip added successfully');
+                    conn.release();
+                })
+                .catch(err => {
+                    conn.rollback()
+                        .then(() => {
+                            res.status(500).send('Error adding payslip');
+                            console.error('Error adding payslip:', err);
+                            conn.release();
+                        });
+                });
+        })
+        .catch(err => {
+            res.status(500).send('Database connection failed');
+            console.error('Database connection failed:', err);
+        });
+});
+
+app.get('/api/getPersonnelSalaryAndDeductions', (req, res) => {
+    const personnelId = req.query.personnelId;
+
+    pool.getConnection()
+        .then(conn => {
+            const salaryQuery = conn.query('SELECT * FROM personnelsalary WHERE Personnel_ID = ?', [personnelId]);
+            const deductionsQuery = conn.query('SELECT * FROM personnel_deductions WHERE Personnel_ID = ?', [personnelId]);
+
+            return Promise.all([salaryQuery, deductionsQuery])
+                .then(([salaryRows, deductionsRows]) => {
+                    res.json({
+                        salary: salaryRows[0],
+                        deductions: deductionsRows
+                    });
+                    conn.release();
+                })
+                .catch(err => {
+                    res.status(500).send('Error fetching personnel salary and deductions');
+                    console.error('Error fetching personnel salary and deductions:', err);
+                    conn.release();
+                });
+        })
+        .catch(err => {
+            res.status(500).send('Database connection failed');
+            console.error('Database connection failed:', err);
+        });
+});
+
+// Route to save payroll data
+app.post('/api/savePayroll', (req, res) => {
+    const { personnelId, totalGross, totalDeduction, totalNet, dateStart, dateEnd } = req.body;
+
+    pool.getConnection()
+        .then(conn => {
+            conn.beginTransaction()
+                .then(() => {
+                    // Insert into salary table
+                    return conn.query('INSERT INTO salary (Personnel_ID, Total_Gross, Total_Deductions, NetGross) VALUES (?, ?, ?, ?)', 
+                    [personnelId, totalGross, totalDeduction, totalNet]);
+                })
+                .then(() => {
+                    return conn.commit();
+                })
+                .then(() => {
+                    res.send('Payroll saved successfully');
+                    conn.release();
+                })
+                .catch(err => {
+                    conn.rollback()
+                        .then(() => {
+                            res.status(500).send('Error saving payroll');
+                            console.error('Error saving payroll:', err);
+                            conn.release();
+                        });
                 });
         })
         .catch(err => {
