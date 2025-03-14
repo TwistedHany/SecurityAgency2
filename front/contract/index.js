@@ -57,28 +57,27 @@ function loadAssignmentData() {
     fetch('http://localhost:5000/getAssignments')
         .then(response => response.json())
         .then(data => {
-            const assignmentData = document.getElementById('assignmentGrid');
-            assignmentData.innerHTML = '';
+            const assignmentGrid = document.getElementById('assignmentGrid');
+            assignmentGrid.innerHTML = ''; // Clear existing data
             data.forEach(assignment => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${assignment.Assignment_ID}</td>
                     <td>${assignment.Personnel_ID}</td>
                     <td>${assignment.Contract_ID}</td>
-                    <td>${assignment.AssignmentStart}</td>
-                    <td>${assignment.AssignmentEnd}</td>
-                    <td>${assignment.Status_ID}</td>
-                    <td>${assignment.Salary_ID}</td>
+                    <td>${assignment.StartDate}</td>
+                    <td>${assignment.EndDate}</td>
+                    <td>${assignment.Status}</td>
                 `;
-                assignmentData.appendChild(row);
+                assignmentGrid.appendChild(row);
             });
         })
-        .catch(error => {
-            console.error('Error fetching assignment data:', error);
-        });
+        .catch(error => console.error('Error fetching assignment data:', error));
 }
 
-function addClient() {
+function addClient(event) {
+    event.preventDefault(); // Prevent the default form submission
+
     const clientForm = document.getElementById('clientForm');
     const formData = new FormData(clientForm);
     const clientData = Object.fromEntries(formData.entries());
@@ -101,7 +100,34 @@ function addClient() {
     });
 }
 
-function addAssignment() {
+function addContract(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const contractForm = document.getElementById('contractForm');
+    const formData = new FormData(contractForm);
+    const contractData = Object.fromEntries(formData.entries());
+
+    fetch('http://localhost:5000/addContract', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contractData)
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+        contractForm.reset();
+        loadContractData();
+    })
+    .catch(error => {
+        console.error('Error adding contract:', error);
+    });
+}
+
+function addAssignment(event) {
+    event.preventDefault(); // Prevent the default form submission
+
     const assignmentForm = document.getElementById('assignmentForm');
     const formData = new FormData(assignmentForm);
     const assignmentData = Object.fromEntries(formData.entries());

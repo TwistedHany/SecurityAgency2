@@ -179,7 +179,17 @@ app.get('/getContracts', (req, res) => {
 app.get('/getAssignments', (req, res) => {
     pool.getConnection()
         .then(conn => {
-            conn.query('SELECT a.Assignment_ID, a.Personnel_ID, a.Contract_ID, a.AssignmentStart AS StartDate, a.AssignmentEnd AS EndDate, s.StatusName AS Status, p.Type AS PaymentMode FROM assignment a JOIN status s ON a.Status_ID = s.Status_ID JOIN paymenttype p ON a.PaymentType_ID = p.PaymentType_ID')
+            conn.query(`
+                SELECT 
+                    a.Assignment_ID, 
+                    a.Personnel_ID, 
+                    a.Contract_ID, 
+                    a.AssignmentStart AS StartDate, 
+                    a.AssignmentEnd AS EndDate, 
+                    s.StatusName AS Status
+                FROM assignment a 
+                JOIN status s ON a.Status_ID = s.Status_ID 
+            `)
                 .then(rows => {
                     res.json(rows);
                     conn.release();
@@ -198,19 +208,37 @@ app.get('/getAssignments', (req, res) => {
 
 // Route to add assignment data
 app.post('/addAssignment', (req, res) => {
-    const { personnelId, contractId, assignmentStart, assignmentEnd, statusId, salaryId } = req.body;
+    const { assignmentId, personnelId, contractId, assignmentStart, assignmentEnd, statusId, salaryId } = req.body;
 
     pool.getConnection()
         .then(conn => {
-            conn.query('INSERT INTO assignment (Personnel_ID, Contract_ID, AssignmentStart, AssignmentEnd, Status_ID, Salary_ID) VALUES (?, ?, ?, ?, ?, ?)', [personnelId, contractId, assignmentStart, assignmentEnd, statusId, salaryId])
+            // Start a transaction
+            conn.beginTransaction()
+                .then(() => {
+                    // Insert assignment data into assignment table
+                    return conn.query('INSERT INTO assignment (Assignment_ID, Personnel_ID, Contract_ID, AssignmentStart, AssignmentEnd, Status_ID, Salary_ID) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+                    [assignmentId, personnelId, contractId, assignmentStart, assignmentEnd, statusId, salaryId]);
+                })
                 .then(result => {
-                    res.send('Assignment added successfully');
+                    // Update the Assignment_ID field in the personnel table
+                    return conn.query('UPDATE personnel SET Assignment_ID = ? WHERE Personnel_ID = ?', [assignmentId, personnelId]);
+                })
+                .then(result => {
+                    // Commit the transaction
+                    return conn.commit();
+                })
+                .then(() => {
+                    res.send('Assignment added and personnel updated successfully');
                     conn.release();
                 })
                 .catch(err => {
-                    res.status(500).send('Error adding assignment data');
-                    console.error('Error adding assignment data:', err);
-                    conn.release();
+                    // Rollback the transaction in case of error
+                    conn.rollback()
+                        .then(() => {
+                            res.status(500).send('Error adding assignment data');
+                            console.error('Error adding assignment data:', err);
+                            conn.release();
+                        });
                 });
         })
         .catch(err => {
@@ -228,7 +256,7 @@ app.post('/addClient', (req, res) => {
             conn.query('INSERT INTO address (Street, Barangay, City, Province, Postal_Code) VALUES (?, ?, ?, ?, ?)', [street, barangay, city, province, zipcode])
                 .then(result => {
                     const addressId = result.insertId;
-                    return conn.query('INSERT INTO client (ClientName, ClientType_ID, ContactPerson, ContactNumber, Email, Address_ID) VALUES (?, ?, ?, ?, ?, ?)', [clientName, clientType, contactPerson, contactNumber, email, addressId]);
+                    return conn.query('INSERT INTO client (ClientName, ClientType_ID, ContactPerson, ContactNumber, Email, Address_ID) VALUES (?, ?, ?, ?, ?, ?)', [businessName, clientType, contactPerson, contactNumber, email, addressId]);
                 })
                 .then(result => {
                     res.send('Client added successfully');
@@ -252,7 +280,8 @@ app.post('/addContract', (req, res) => {
 
     pool.getConnection()
         .then(conn => {
-            conn.query('INSERT INTO contract (Client_ID, StartDate, EndDate, PaymentType_ID, Status_ID, ContractValue) VALUES (?, ?, ?, ?, ?, ?)', [client, startDate, endDate, paymentMode, status, contractValue])
+            conn.query('INSERT INTO contract (Client_ID, StartDate, EndDate, PaymentType_ID, Status_ID, ContractValue) VALUES (?, ?, ?, ?, ?, ?)', 
+            [client, startDate, endDate, paymentMode, status, contractValue])
                 .then(result => {
                     res.send('Contract added successfully');
                     conn.release();
